@@ -3,33 +3,9 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
-
-interface TagListProps {
-  title: string;
-  tags: string[];
-}
-
-function TagList({ title, tags }: TagListProps) {
-  return (
-    <section className="mt-8 px-6 max-w-5xl mx-auto">
-      <h2 className="text-white text-lg font-semibold mb-4">{title}</h2>
-      <div className="flex flex-wrap gap-3">
-        {tags.map((tag) => (
-          <Badge
-            key={tag}
-            variant="outline"
-            className="bg-gray-800 text-white hover:bg-gray-700 cursor-pointer border-none py-1.5 px-4"
-          >
-            {tag}
-          </Badge>
-        ))}
-      </div>
-    </section>
-  );
-}
+import { TagList } from "@/components/TagList";
 
 interface SearchBarProps {
   initialValue: string;
@@ -39,7 +15,6 @@ interface SearchBarProps {
 
 function SearchBar({ initialValue, onSearch, className }: SearchBarProps) {
   const [searchValue, setSearchValue] = useState(initialValue);
-  const isMobile = useIsMobile();
 
   const handleSearch = () => {
     if (searchValue.trim()) {
@@ -85,15 +60,18 @@ function HeroSection() {
   };
 
   return (
-    <section className="relative w-full max-w-5xl mx-auto rounded-xl overflow-hidden mt-8">
+    <section 
+      className="relative w-full max-w-5xl mx-auto rounded-xl overflow-hidden mt-8"
+      aria-labelledby="hero-heading"
+    >
       <img 
         src="/task1/hero-bg.png" 
         className="w-full h-[24rem] object-cover" 
-        alt="Dictionary background"
+        alt=""
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4">
-        <h1 className="text-3xl md:text-5xl font-bold text-white max-w-3xl">
+        <h1 id="hero-heading" className="text-3xl md:text-5xl font-bold text-white max-w-3xl">
           Search for words, phrases and meanings
         </h1>
         <SearchBar 
