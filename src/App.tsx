@@ -20,7 +20,8 @@ function TagList({ title, tags }: TagListProps) {
         {tags.map((tag) => (
           <Badge
             key={tag}
-            className="bg-gray-800 text-white hover:bg-gray-700 cursor-pointer"
+            variant="outline"
+            className="bg-gray-800 text-white hover:bg-gray-700 cursor-pointer border-none py-1.5 px-4"
           >
             {tag}
           </Badge>
@@ -33,13 +34,17 @@ function TagList({ title, tags }: TagListProps) {
 interface SearchBarProps {
   initialValue: string;
   onSearch: (search: string) => void;
+  className?: string;
 }
 
-function SearchBar({ initialValue, onSearch }: SearchBarProps) {
+function SearchBar({ initialValue, onSearch, className }: SearchBarProps) {
   const [searchValue, setSearchValue] = useState(initialValue);
+  const isMobile = useIsMobile();
 
   const handleSearch = () => {
-    onSearch(searchValue);
+    if (searchValue.trim()) {
+      onSearch(searchValue);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -49,19 +54,22 @@ function SearchBar({ initialValue, onSearch }: SearchBarProps) {
   };
 
   return (
-    <div className="flex items-center bg-black/80 px-4 py-2 rounded-full w-full max-w-xl mt-6 shadow-lg">
-      <Search className="text-gray-400 mr-3" aria-hidden="true" />
+    <div className={cn(
+      "flex items-center bg-black/80 px-4 py-2 rounded-full w-full max-w-xl shadow-lg",
+      className
+    )}>
+      <Search className="text-gray-400 mr-3" size={20} aria-hidden="true" />
       <Input
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
         onKeyDown={handleKeyDown}
         type="text"
         placeholder="Type to search..."
-        className="flex-1 bg-transparent border-none text-white placeholder:text-gray-400 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+        className="flex-1 bg-transparent border-none text-white placeholder:text-gray-400 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-10"
         aria-label="Search for words, phrases and meanings"
       />
       <Button 
-        className="bg-blue-600 hover:bg-blue-700 text-white ml-4"
+        className="bg-blue-600 hover:bg-blue-700 text-white ml-4 px-6"
         onClick={handleSearch}
       >
         Search
@@ -80,15 +88,19 @@ function HeroSection() {
     <section className="relative w-full max-w-5xl mx-auto rounded-xl overflow-hidden mt-8">
       <img 
         src="/task1/hero-bg.png" 
-        className="w-full h-96 object-cover" 
+        className="w-full h-[24rem] object-cover" 
         alt="Dictionary background"
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4">
-        <h1 className="text-3xl md:text-5xl font-bold text-white">
+        <h1 className="text-3xl md:text-5xl font-bold text-white max-w-3xl">
           Search for words, phrases and meanings
         </h1>
-        <SearchBar initialValue="" onSearch={handleSearch} />
+        <SearchBar 
+          initialValue="" 
+          onSearch={handleSearch} 
+          className="mt-8"
+        />
       </div>
     </section>
   );
@@ -100,18 +112,22 @@ function Header() {
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-black border-b border-gray-800">
       <div className="flex items-center gap-2">
-        <img src="/task1/logo.png" alt="Wortionary Logo" className="w-10 h-10" />
-        <div className="text-white font-semibold text-lg">Wortionary</div>
+        <img src="/task1/logo.png" alt="Wortionary Logo" className="w-8 h-8" />
+        <span className="text-white font-semibold text-lg">Wortionary</span>
       </div>
 
       {!isMobile && (
         <div className="flex items-center gap-4">
           <div className="relative">
-            <Search className="absolute left-3 top-2.5 text-gray-400 text-sm" aria-hidden="true" />
+            <Search 
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" 
+              size={16} 
+              aria-hidden="true" 
+            />
             <Input
               type="search"
               placeholder="Search"
-              className="pl-9 bg-gray-800 text-white border-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-full h-9"
+              className="pl-9 bg-gray-800 text-white border-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-full h-9 w-[200px]"
               aria-label="Search"
             />
           </div>
@@ -126,7 +142,17 @@ function Header() {
 }
 
 export default function App() {
+  // Separate trending and for you tags for better maintainability
   const trendingTags = [
+    "NFT",
+    "Metaverse",
+    "Sustainable",
+    "Sonder",
+    "FOMO",
+    "Ghosting",
+  ];
+  
+  const forYouTags = [
     "NFT",
     "Metaverse",
     "Sustainable",
@@ -140,7 +166,7 @@ export default function App() {
       <Header />
       <HeroSection />
       <TagList title="Trending" tags={trendingTags} />
-      <TagList title="For you" tags={trendingTags} />
+      <TagList title="For you" tags={forYouTags} />
     </main>
   );
 }
