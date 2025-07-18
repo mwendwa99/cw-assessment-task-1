@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
@@ -9,15 +9,22 @@ interface SearchBarProps {
   onSearch: (search: string) => void;
   className?: string;
   placeholder?: string;
+  compact?: boolean;
 }
 
 export function SearchBar({ 
   initialValue = "", 
   onSearch, 
   className,
-  placeholder = "Type to search..." 
+  placeholder = "Type to search...",
+  compact = false
 }: SearchBarProps) {
   const [searchValue, setSearchValue] = useState(initialValue);
+
+  // Update internal state when initialValue prop changes
+  useEffect(() => {
+    setSearchValue(initialValue);
+  }, [initialValue]);
 
   const handleSearch = () => {
     if (searchValue.trim()) {
@@ -30,6 +37,27 @@ export function SearchBar({
       handleSearch();
     }
   };
+
+  if (compact) {
+    return (
+      <div className={cn("relative", className)}>
+        <Search 
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" 
+          size={16} 
+          aria-hidden="true" 
+        />
+        <Input
+          type="search"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={placeholder}
+          className="pl-9 bg-gray-800 text-white border-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-full h-9 w-[200px]"
+          aria-label={placeholder}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={cn(
