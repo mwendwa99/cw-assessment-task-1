@@ -11,10 +11,10 @@ export function Header() {
   };
 
   return (
-    <header className="flex items-center justify-between px-6 py-4 bg-black border-b border-gray-800">
+    <header className="flex items-center justify-between px-6 py-4 bg-[#121417] border-b border-white">
       <div className="flex items-center gap-2">
-        <img src="/task1/logo.png" alt="Wortionary Logo" className="w-8 h-8" />
-        <span className="text-white font-semibold text-lg">Wortionary</span>
+        <img src="/task1/logo.png" alt="Worctionary Logo" className="w-8 h-8" />
+        <span className="text-white font-semibold text-[18px]">Worctionary</span>
       </div>
 
       {!isMobile && (
@@ -26,7 +26,7 @@ export function Header() {
             compact={true}
           />
           <Avatar className="w-8 h-8">
-            <AvatarImage src="/avatar.jpg" alt="User profile" />
+            <AvatarImage src="/task1/avatar.png" alt="User profile" />
             <AvatarFallback>U</AvatarFallback>
           </Avatar>
         </div>

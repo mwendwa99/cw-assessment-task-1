@@ -14,7 +14,7 @@ export function TagList({ title, tags }: TagListProps) {
           <Badge
             key={tag}
             variant="outline"
-            className="bg-gray-800 text-white hover:bg-gray-700 cursor-pointer border-none py-1.5 px-4"
+            className="bg-[#293038] h-[32px] text-[#9EABB8] hover:bg-gray-700 cursor-pointer border-none py-1.5 px-4"
           >
             {tag}
           </Badge>
