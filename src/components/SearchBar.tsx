@@ -52,7 +52,7 @@ export function SearchBar({
           onChange={(e) => setSearchValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="pl-9 bg-[#293038] text-[#9EABB8] border-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-9 w-[200px]"
+          className="pl-9 bg-[#1C2126] text-[#9EABB8] border-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-9 w-[200px]"
           aria-label={placeholder}
         />
       </div>

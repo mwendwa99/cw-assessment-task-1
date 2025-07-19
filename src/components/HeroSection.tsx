@@ -3,7 +3,6 @@ import { SearchBar } from "@/components/SearchBar";
 export function HeroSection() {
   const handleSearch = (search: string) => {
     console.log(search);
-    // implementing the search logic is not required for this task
   };
 
   return (
@@ -13,18 +12,18 @@ export function HeroSection() {
     >
       <img 
         src="/task1/hero-bg.png" 
-        className="w-full h-[480px] object-cover" 
+        className="w-[928px] h-[480px] object-contain" 
         alt=""
         aria-hidden="true"
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-        <h1 id="hero-heading" className="text-3xl md:text-5xl font-bold text-white max-w-3xl">
+        <h1 id="hero-heading" className="text-[48px] font-bold text-white max-w-3xl">
           Search for words, phrases and meanings
         </h1>
         <SearchBar 
           initialValue="" 
           onSearch={handleSearch} 
-          className="mt-8 bg-[#293038]"
+          className="mt-8 bg-[#1C2126]"
         />
       </div>
     </section>
