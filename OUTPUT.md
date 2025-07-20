@@ -1,5 +1,18 @@
 # Changes Made
 
+## TypeScript Configuration Fixes
+
+**Fixed type-only import violations**
+- Issue: `VariantProps` and `ToasterProps` were imported as regular imports when only used as types
+- Fix: Changed to `import { type VariantProps }` syntax to comply with `verbatimModuleSyntax`
+- Prevents unnecessary code in the final JavaScript bundle
+
+**Cleaned up invalid tsconfig options**
+- Issue: `tsBuildInfoFile` specified without required `incremental` option, `erasableSyntaxOnly` doesn't exist
+- Fix: Removed both invalid options from `tsconfig.app.json`
+- Now works properly with Vite + React setup without build errors
+
+
 ## Component Structure & Organization
 
 **Extracted reusable components from monolithic App.tsx**
